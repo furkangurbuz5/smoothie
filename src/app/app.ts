@@ -1,19 +1,20 @@
-import { Component, Signal, signal, WritableSignal } from '@angular/core';
-import { SmoothieForm } from '../form/smoothie-form/smoothie-form';
-import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { Component, signal, WritableSignal } from '@angular/core';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { TableComponent } from './table/table.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @Component({
   selector: 'app-root',
-  imports: [SmoothieForm, MatSlideToggle],
+  imports: [DashboardComponent, TableComponent, NavigationComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('smoothie');
-
   slideToggled: WritableSignal<boolean> = signal(false);
+  protected readonly title = signal('smoothie');
 
   onSlideToggle(change: MatSlideToggleChange): void {
     this.slideToggled.set(change.checked);
-  };
+  }
 }
