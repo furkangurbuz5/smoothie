@@ -1,1 +1,9 @@
-<p>smoothie-form works!</p>
+<form [formGroup]="smoothieForm" class="smoothie-form">
+  <label class="form-label">Wat is je naam?</label>
+  <input formControlName="name" type="text" placeholder="Name" class="form-input">
+  <label class="form-label">Typ hier wat tekst in!</label>
+  <textarea formControlName="text" placeholder="Description" class="form-input form-textarea">
+
+  </textarea>
+  <button (click)="onClick()" type="button" class="form-button"> Verander de data van het formulier!</button>
+</form>
