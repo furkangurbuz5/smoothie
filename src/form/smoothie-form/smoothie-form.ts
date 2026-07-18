@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component, effect,
+  inject,
+  input,
+  InputSignal,
+  OnInit,
+  signal,
+  Signal,
+} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -11,6 +20,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class SmoothieForm implements OnInit {
   fb: FormBuilder = inject(FormBuilder);
 
+  slideToggled: InputSignal<Signal<boolean>> = input<Signal<boolean>>(signal(false));
+
   title: Signal<string> = signal('smoothies are nice!');
 
   smoothieForm: FormGroup = this.fb.group({
@@ -18,6 +29,13 @@ export class SmoothieForm implements OnInit {
     name: '',
     text: '',
   });
+
+  constructor() {
+    effect(() => {
+      const isToggled = this.slideToggled();
+      console.log(isToggled());
+    })
+  }
 
   ngOnInit() {
     console.log(this.title());
