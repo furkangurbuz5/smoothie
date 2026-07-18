@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class SmoothieForm implements OnInit {
   fb: FormBuilder = inject(FormBuilder);
 
-  title: Signal<string> = signal('smoothie');
+  title: Signal<string> = signal('smoothies are nice!');
 
   smoothieForm: FormGroup = this.fb.group({
     id: 1,
