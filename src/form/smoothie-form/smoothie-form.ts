@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -11,6 +11,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class SmoothieForm implements OnInit {
   fb: FormBuilder = inject(FormBuilder);
 
+  title: Signal<string> = signal('smoothie');
+
   smoothieForm: FormGroup = this.fb.group({
     id: 1,
     name: '',
@@ -18,6 +20,7 @@ export class SmoothieForm implements OnInit {
   });
 
   ngOnInit() {
+    console.log(this.title());
     this.populateSmoothieForm();
   }
 
