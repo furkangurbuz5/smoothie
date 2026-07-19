@@ -5,11 +5,28 @@
     cdkDropList
     #todoList="cdkDropList"
     [cdkDropListData]="todo"
-    [cdkDropListConnectedTo]="doneList"
+    [cdkDropListConnectedTo]="inProgressList"
     class="list"
     (cdkDropListDropped)="drop($event)"
   >
     @for (item of todo; track item) {
+      <div class="list-item" cdkDrag>{{ item }}</div>
+    }
+  </div>
+</div>
+
+<div class="container">
+  <h2>In progress</h2>
+
+  <div
+    cdkDropList
+    #inProgressList="cdkDropList"
+    [cdkDropListData]="inProgress"
+    [cdkDropListConnectedTo]="[doneList, todoList]"
+    class="list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    @for (item of inProgress; track item) {
       <div class="list-item" cdkDrag>{{ item }}</div>
     }
   </div>
@@ -22,7 +39,7 @@
     cdkDropList
     #doneList="cdkDropList"
     [cdkDropListData]="done"
-    [cdkDropListConnectedTo]="todoList"
+    [cdkDropListConnectedTo]="[todoList, inProgressList]"
     class="list"
     (cdkDropListDropped)="drop($event)"
   >
