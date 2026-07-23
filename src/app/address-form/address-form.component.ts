@@ -1,11 +1,29 @@
 import { Component, inject } from '@angular/core';
 
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
+
+interface AddressFormData {
+  company: FormControl<string | null>;
+  firstName: FormControl<string | null>;
+  lastName: FormControl<string | null>;
+  address: FormControl<string | null>;
+  address2: FormControl<string | null>;
+  city: FormControl<string | null>;
+  state: FormControl<string | null>;
+  postalCode: FormControl<string | null>;
+  shipping: FormControl<string | null>;
+}
 
 @Component({
   selector: 'app-address-form',
@@ -21,24 +39,7 @@ import { MatCardModule } from '@angular/material/card';
   ],
 })
 export class AddressFormComponent {
-  private fb = inject(FormBuilder);
-  addressForm = this.fb.group({
-    company: null,
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    address: [null, Validators.required],
-    address2: null,
-    city: [null, Validators.required],
-    state: [null, Validators.required],
-    postalCode: [
-      null,
-      Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
-    ],
-    shipping: ['free', Validators.required],
-  });
-
   hasUnitNumber = false;
-
   states = [
     { name: 'Alabama', abbreviation: 'AL' },
     { name: 'Alaska', abbreviation: 'AK' },
@@ -100,8 +101,25 @@ export class AddressFormComponent {
     { name: 'Wisconsin', abbreviation: 'WI' },
     { name: 'Wyoming', abbreviation: 'WY' },
   ];
+  private fb = inject(FormBuilder);
+  addressForm: FormGroup<AddressFormData> = this.fb.group({
+    company: new FormControl<string | null>(null),
+    firstName: new FormControl<string | null>(null, Validators.required),
+    lastName: new FormControl<string | null>(null, Validators.required),
+    address: new FormControl<string | null>(null, Validators.required),
+    address2: new FormControl<string | null>(null),
+    city: new FormControl<string | null>(null, Validators.required),
+    state: new FormControl<string | null>(null, Validators.required),
+    postalCode: new FormControl<string | null>(
+      null,
+      Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
+    ),
+    shipping: ['free', Validators.required],
+  });
 
   onSubmit(): void {
-    alert('Thanks!');
+    this.addressForm.valueChanges.subscribe((value) => {
+      console.log(value);
+    });
   }
 }

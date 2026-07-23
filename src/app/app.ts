@@ -5,6 +5,7 @@ import { TableComponent } from './table/table.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { TreeComponent } from './tree/tree.component';
+import { AddressFormComponent } from './address-form/address-form.component';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { TreeComponent } from './tree/tree.component';
     NavigationComponent,
     DragDropComponent,
     TreeComponent,
+    AddressFormComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',
