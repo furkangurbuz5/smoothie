@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { DummyJsonClient } from '../client/dummy-json-client';
 import { map } from 'rxjs/operators';
-import { mapProductDtoToProductModel } from '../dto/product.dto';
+import { mapProductDtoToProductModel, ProductResponse } from '../dto/product.dto';
+import { Product } from '../model/product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,8 @@ export class DummyJsonService {
 
   getProducts() {
     return this.dummyJsonClient.getProducts().pipe(
-      map((productResponse) => {
-        return productResponse.products;
-      }),
-      map((products) => {
-        return products.map(mapProductDtoToProductModel);
+      map((productResponse: ProductResponse): Product[] => {
+        return productResponse.products.map(mapProductDtoToProductModel);
       }),
     );
   }
